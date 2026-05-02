@@ -1,0 +1,16 @@
+node_modules/
+.env
+.env.local
+.vercel
+
+# Local SQLite databases (data lives in Neon on production)
+*.db
+*.sqlite
+data/brahmworks-db.json
+data/*.sqlite
+brahmworks.db
+data.db
+
+# OS files
+.DS_Store
+Thumbs.db

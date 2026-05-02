@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brahmworks · Quote Review</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" />
+    <link rel="stylesheet" href="styles.css?v=20260427" />
+  </head>
+  <body>
+    <div class="subpage-root">
+
+      <!-- Header -->
+      <header class="subpage-header">
+        <div class="subpage-header-inner">
+          <a class="subpage-brand" href="/">
+            <div class="sidebar-logo-mark">BW</div>
+            <span class="sidebar-logo-text">Brahmworks</span>
+          </a>
+          <div class="subpage-divider"></div>
+          <div class="subpage-title-block">
+            <p class="subpage-breadcrumb">Quote Review</p>
+            <h1 id="reviewTitle">Loading quote…</h1>
+            <p id="reviewMeta" class="subpage-meta"></p>
+          </div>
+          <div class="subpage-actions">
+            <button id="reviewBackButton" class="secondary-button" type="button">Back</button>
+            <button id="reviewEstimateButton" class="secondary-button" type="button">Customer Estimate</button>
+            <button id="reviewDfmButton" class="secondary-button" type="button">DFM Analysis</button>
+            <button id="reviewCheckoutButton" class="btn-primary" type="button">Checkout</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Body -->
+      <div class="subpage-body">
+
+        <!-- Workbench -->
+        <div class="workbench">
+
+          <!-- Main: viewer -->
+          <div class="workbench-main card">
+            <div class="card-head">
+              <div class="card-head-copy">
+                <p class="section-kicker">Viewer</p>
+                <h2>Uploaded Part</h2>
+              </div>
+              <a class="secondary-button" href="#" id="reviewFileInlineLink" target="_blank" rel="noreferrer">Open Source File</a>
+            </div>
+            <div class="file-preview-wrap">
+              <div id="reviewFileViewer" class="file-preview-frame document-viewer workspace-viewer empty-state">Loading file preview…</div>
+            </div>
+            <p class="muted-text" style="padding: 0 1.25rem 1rem;">3D preview stays fixed here while you review manufacturing selections and pricing.</p>
+          </div>
+
+          <!-- Sidebar: estimate + controls -->
+          <div class="workbench-sidebar card">
+            <div class="card-head">
+              <div class="card-head-copy">
+                <p class="section-kicker">Quote</p>
+                <h2>Live Estimate</h2>
+              </div>
+            </div>
+            <div id="pricingSummary" class="list-stack"></div>
+            <div id="dfmAnalysisPanel" class="list-stack"></div>
+
+            <form id="quoteQuickControls" class="quick-controls">
+              <div class="quick-controls-grid">
+                <div class="field-label">
+                  <span class="field-label-text">Process</span>
+                  <select name="process" id="quoteQuickProcess"></select>
+                </div>
+                <div class="field-label">
+                  <span class="field-label-text">Quantity</span>
+                  <input type="number" name="quantity" min="1" required />
+                </div>
+              </div>
+              <div class="field-label">
+                <span class="field-label-text">Design Units</span>
+                <select name="designUnits" id="quoteQuickDesignUnits"></select>
+              </div>
+              <div id="quoteQuickOptionFields" class="quick-controls-grid"></div>
+              <p id="quoteQuickControlsStatus" class="quick-controls-status">Change selections here and the estimate updates automatically.</p>
+            </form>
+
+            <div id="pricingBreakdown" class="list-stack"></div>
+          </div>
+
+        </div><!-- /workbench -->
+
+        <!-- Advanced costing -->
+        <details class="advanced-details">
+          <summary>
+            <span>Advanced Costing Controls</span>
+            <span>Internal use only</span>
+          </summary>
+          <form id="quoteReviewDetailForm" class="inventory-form quote-review-advanced-form">
+            <div class="form-row">
+              <div class="field-label">
+                <span class="field-label-text">Process</span>
+                <select name="process">
+                  <option value="CNC Machining">CNC Machining</option>
+                  <option value="Sheet Metal">Sheet Metal</option>
+                  <option value="3D Printing">3D Printing</option>
+                  <option value="Injection Molding">Injection Molding</option>
+                </select>
+              </div>
+              <div class="field-label">
+                <span class="field-label-text">Quantity</span>
+                <input type="number" name="quantity" min="1" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-label">
+                <span class="field-label-text">Material</span>
+                <input type="text" name="material" />
+              </div>
+              <div class="field-label">
+                <span class="field-label-text">Finish</span>
+                <input type="text" name="finish" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-label">
+                <span class="field-label-text">Status</span>
+                <select name="status">
+                  <option value="New">New</option>
+                  <option value="Reviewing">Reviewing</option>
+                  <option value="Quoted">Quoted</option>
+                  <option value="Needs Clarification">Needs Clarification</option>
+                  <option value="Closed">Closed</option>
+                </select>
+              </div>
+              <div class="field-label">
+                <span class="field-label-text">Lead Days</span>
+                <input type="number" name="leadDays" min="1" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-label">
+                <span class="field-label-text">Setup Hours</span>
+                <input type="number" name="setupHours" min="0" step="0.1" />
+              </div>
+              <div class="field-label">
+                <span class="field-label-text">Machining Hours</span>
+                <input type="number" name="machiningHours" min="0" step="0.1" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-label">
+                <span class="field-label-text">Hourly Rate</span>
+                <input type="number" name="hourlyRate" min="0" step="1" />
+              </div>
+              <div class="field-label">
+                <span class="field-label-text">Stock Multiplier</span>
+                <input type="number" name="stockMultiplier" min="0" step="0.01" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-label">
+                <span class="field-label-text">Tooling Cost</span>
+                <input type="number" name="toolingCost" min="0" step="1" />
+              </div>
+              <div class="field-label">
+                <span class="field-label-text">Inspection Cost</span>
+                <input type="number" name="inspectionCost" min="0" step="1" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-label">
+                <span class="field-label-text">Shipping Cost</span>
+                <input type="number" name="shippingCost" min="0" step="1" />
+              </div>
+              <div class="field-label">
+                <span class="field-label-text">Overhead %</span>
+                <input type="number" name="overheadPercent" min="0" step="1" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-label">
+                <span class="field-label-text">Margin %</span>
+                <input type="number" name="marginPercent" min="0" step="1" />
+              </div>
+              <div class="field-label">
+                <span class="field-label-text">Internal Notes</span>
+                <input type="text" name="adminNotes" />
+              </div>
+            </div>
+            <p id="quoteReviewDetailStatus" class="muted-text">Adjust costing assumptions only when needed, then save to refresh the official estimate.</p>
+            <button type="submit" class="btn-primary" style="align-self:flex-start;">Save Quote &amp; Generate Estimate</button>
+          </form>
+        </details>
+
+      </div><!-- /subpage-body -->
+    </div><!-- /subpage-root -->
+
+    <script src="quote-review.js?v=20260427"></script>
+  </body>
+</html>

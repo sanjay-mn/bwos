@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brahmworks · Customer Estimate</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" />
+    <link rel="stylesheet" href="styles.css?v=20260427" />
+  </head>
+  <body>
+    <div class="subpage-root">
+
+      <!-- Header -->
+      <header class="subpage-header">
+        <div class="subpage-header-inner">
+          <a class="subpage-brand" href="/">
+            <div class="sidebar-logo-mark">BW</div>
+            <span class="sidebar-logo-text">Brahmworks</span>
+          </a>
+          <div class="subpage-divider"></div>
+          <div class="subpage-title-block">
+            <p class="subpage-breadcrumb">Customer Estimate</p>
+            <h1 id="customerEstimateTitle">Loading estimate…</h1>
+            <p id="customerEstimateMeta" class="subpage-meta"></p>
+          </div>
+          <div class="subpage-actions">
+            <button id="customerEstimateBackButton" class="secondary-button" type="button">Back to Review</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Body -->
+      <div class="subpage-body">
+        <div class="estimate-layout">
+
+          <!-- Steps -->
+          <div class="estimate-stack">
+
+            <!-- Step 1: Select customer -->
+            <div class="card">
+              <div class="step-head">
+                <div class="step-head-copy">
+                  <p class="section-kicker">Step 1</p>
+                  <h2>Select Customer</h2>
+                </div>
+              </div>
+              <form id="customerEstimateForm" class="panel-form">
+                <div class="field-label">
+                  <span class="field-label-text">Customer</span>
+                  <select id="customerSelect" name="customerId" required>
+                    <option value="">Choose customer</option>
+                  </select>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn-primary">Generate Official Estimate</button>
+                  <p id="customerEstimateStatus" class="muted-text">Choose a customer first. The estimate opens in a new tab.</p>
+                </div>
+              </form>
+            </div>
+
+            <!-- Step 2: Add new customer -->
+            <div class="card">
+              <div class="step-head">
+                <div class="step-head-copy">
+                  <p class="section-kicker">Step 2</p>
+                  <h2>Add New Customer</h2>
+                </div>
+              </div>
+              <form id="customerAddForm" class="panel-form">
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">Customer Name</span>
+                    <input type="text" name="name" placeholder="Acme Mobility" required />
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Contact Person</span>
+                    <input type="text" name="contactPerson" placeholder="Rahul Sharma" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">Email</span>
+                    <input type="email" name="email" placeholder="buyer@acme.com" />
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Phone</span>
+                    <input type="text" name="phone" placeholder="+91 98XXXXXXXX" />
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="secondary-button">Add Customer</button>
+                  <p id="customerAddStatus" class="muted-text">Use this if the customer does not exist yet.</p>
+                </div>
+              </form>
+            </div>
+
+          </div><!-- /estimate-stack -->
+
+          <!-- Preview panel -->
+          <div class="estimate-preview">
+            <div class="card">
+              <div class="step-head">
+                <div class="step-head-copy">
+                  <p class="section-kicker">Estimate Preview</p>
+                  <h2>Quote Summary</h2>
+                </div>
+              </div>
+              <div class="estimate-summary-list">
+                <div class="estimate-summary-row">
+                  <span class="esr-label">Reference</span>
+                  <span id="estimateSummaryReference" class="esr-value">—</span>
+                </div>
+                <div class="estimate-summary-row">
+                  <span class="esr-label">Process</span>
+                  <span id="estimateSummaryProcess" class="esr-value">—</span>
+                </div>
+                <div class="estimate-summary-row">
+                  <span class="esr-label">Material</span>
+                  <span id="estimateSummaryMaterial" class="esr-value">—</span>
+                </div>
+                <div class="estimate-summary-row">
+                  <span class="esr-label">Quantity</span>
+                  <span id="estimateSummaryQuantity" class="esr-value">—</span>
+                </div>
+                <div class="estimate-summary-row">
+                  <span class="esr-label">Lead Time</span>
+                  <span id="estimateSummaryLead" class="esr-value">—</span>
+                </div>
+                <div class="estimate-summary-row">
+                  <span class="esr-label">Budgetary Range</span>
+                  <span id="estimateSummaryRange" class="esr-value">—</span>
+                </div>
+              </div>
+              <div id="estimateSelectedCustomer" class="list-stack"></div>
+            </div>
+          </div>
+
+        </div><!-- /estimate-layout -->
+      </div><!-- /subpage-body -->
+    </div><!-- /subpage-root -->
+
+    <script src="customer-estimate.js?v=20260427"></script>
+  </body>
+</html>

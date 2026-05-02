@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brahmworks · DFM Analysis</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" />
+    <link rel="stylesheet" href="styles.css?v=20260427" />
+  </head>
+  <body>
+    <div class="subpage-root">
+
+      <!-- Header -->
+      <header class="subpage-header">
+        <div class="subpage-header-inner">
+          <a class="subpage-brand" href="/">
+            <div class="sidebar-logo-mark">BW</div>
+            <span class="sidebar-logo-text">Brahmworks</span>
+          </a>
+          <div class="subpage-divider"></div>
+          <div class="subpage-title-block">
+            <p class="subpage-breadcrumb">DFM Analysis</p>
+            <h1 id="dfmTitle">Loading analysis…</h1>
+            <p id="dfmMeta" class="subpage-meta"></p>
+          </div>
+          <div class="subpage-actions">
+            <button id="dfmDashboardButton" class="secondary-button" type="button">Dashboard</button>
+            <button id="dfmReviewButton" class="secondary-button" type="button">Back to Review</button>
+            <button id="dfmDownloadButton" class="secondary-button" type="button">Download Report</button>
+            <button id="dfmCheckoutButton" class="btn-primary" type="button">Checkout</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Body -->
+      <div class="subpage-body">
+
+        <!-- Workbench -->
+        <div class="workbench">
+
+          <!-- Main: part viewer -->
+          <div class="workbench-main card">
+            <div class="card-head">
+              <div class="card-head-copy">
+                <p class="section-kicker">Part</p>
+                <h2>Reviewed Geometry</h2>
+              </div>
+              <a class="secondary-button" href="#" id="dfmFileInlineLink" target="_blank" rel="noreferrer">Open Source File</a>
+            </div>
+            <div class="file-preview-wrap">
+              <div id="dfmFileViewer" class="file-preview-frame document-viewer workspace-viewer empty-state">Loading file preview…</div>
+            </div>
+            <p class="muted-text" style="padding: 0 1.25rem 1rem;">The part preview stays visible while Brahmworks checks the selected molding or fabrication rules.</p>
+          </div>
+
+          <!-- Sidebar: DFM result -->
+          <div class="workbench-sidebar card">
+            <div class="card-head">
+              <div class="card-head-copy">
+                <p class="section-kicker">Analysis</p>
+                <h2>DFM Result</h2>
+              </div>
+            </div>
+            <div id="dfmSummary" class="list-stack"></div>
+            <div id="dfmRules" class="list-stack"></div>
+          </div>
+
+        </div><!-- /workbench -->
+
+        <!-- Checklist -->
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-copy">
+              <p class="section-kicker">Checklist</p>
+              <h2>Rule-by-Rule Review</h2>
+            </div>
+          </div>
+          <div id="dfmChecklist" class="list-stack"></div>
+        </div>
+
+      </div><!-- /subpage-body -->
+    </div><!-- /subpage-root -->
+
+    <script src="quote-dfm.js?v=20260427"></script>
+  </body>
+</html>

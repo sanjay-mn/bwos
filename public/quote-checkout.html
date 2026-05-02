@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brahmworks · Checkout</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" />
+    <link rel="stylesheet" href="styles.css?v=20260427" />
+  </head>
+  <body>
+    <div class="subpage-root">
+
+      <!-- Header -->
+      <header class="subpage-header">
+        <div class="subpage-header-inner">
+          <a class="subpage-brand" href="/">
+            <div class="sidebar-logo-mark">BW</div>
+            <span class="sidebar-logo-text">Brahmworks</span>
+          </a>
+          <div class="subpage-divider"></div>
+          <div class="subpage-title-block">
+            <p class="subpage-breadcrumb">Commercial Checkout</p>
+            <h1 id="checkoutTitle">Loading order…</h1>
+            <p id="checkoutMeta" class="subpage-meta"></p>
+          </div>
+          <div class="subpage-actions">
+            <button id="checkoutBackButton" class="secondary-button" type="button">Back to Review</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Body -->
+      <div class="subpage-body">
+        <div class="checkout-layout">
+
+          <!-- Steps column -->
+          <div class="checkout-steps">
+
+            <!-- Step 1: Review status -->
+            <div class="card">
+              <div class="step-head">
+                <div class="step-head-copy">
+                  <p class="section-kicker">Step 1</p>
+                  <h2>Review Complete</h2>
+                </div>
+                <span id="checkoutReviewBadge" class="badge badge-gray">Loading</span>
+              </div>
+              <div id="checkoutReviewBanner" class="checkout-callout hidden"></div>
+              <div class="checkout-status-grid">
+                <div class="checkout-status-item">
+                  <span>Review result</span>
+                  <strong id="checkoutReviewResult">—</strong>
+                </div>
+                <div class="checkout-status-item">
+                  <span>Engineering decision</span>
+                  <strong id="checkoutEngineeringDecision">—</strong>
+                </div>
+                <div class="checkout-status-item">
+                  <span>Commercial route</span>
+                  <strong id="checkoutProcessRoute">—</strong>
+                </div>
+              </div>
+              <p id="checkoutGateNote" class="checkout-gate-note"></p>
+            </div>
+
+            <!-- Step 2: Commercial setup -->
+            <div class="card">
+              <div class="step-head">
+                <div class="step-head-copy">
+                  <p class="section-kicker">Step 2</p>
+                  <h2>Commercial Setup</h2>
+                </div>
+              </div>
+              <form id="checkoutCommercialForm" class="panel-form">
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">Customer</span>
+                    <select id="checkoutCustomerId" name="customerId">
+                      <option value="">Choose customer</option>
+                    </select>
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Order status</span>
+                    <select id="checkoutStatus" name="status">
+                      <option value="Draft">Draft</option>
+                      <option value="Ready for Checkout">Ready for Checkout</option>
+                      <option value="Engineering Review Required">Engineering Review Required</option>
+                      <option value="Confirmed">Confirmed</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">End use</span>
+                    <select name="endUse">
+                      <option value="Prototype">Prototype</option>
+                      <option value="Bridge Production">Bridge Production</option>
+                      <option value="Production">Production</option>
+                    </select>
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">MOQ</span>
+                    <input type="number" min="1" name="moq" />
+                  </div>
+                </div>
+
+                <!-- Injection molding fields -->
+                <div id="checkoutInjectionFields" hidden>
+                  <p class="checkout-section-title" style="padding:0; margin-bottom:0.75rem;">Tooling + production setup</p>
+                  <div class="form-row">
+                    <div class="field-label">
+                      <span class="field-label-text">Mold type</span>
+                      <select name="moldType">
+                        <option value="Pilot mold">Pilot mold</option>
+                        <option value="Production mold">Production mold</option>
+                        <option value="Family mold">Family mold</option>
+                      </select>
+                    </div>
+                    <div class="field-label">
+                      <span class="field-label-text">Cavity count</span>
+                      <input type="number" min="1" name="cavityCount" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="field-label">
+                      <span class="field-label-text">Tool material</span>
+                      <select name="toolMaterial">
+                        <option value="Aluminum">Aluminum</option>
+                        <option value="P20 steel">P20 steel</option>
+                        <option value="H13 steel">H13 steel</option>
+                        <option value="NAK80 steel">NAK80 steel</option>
+                      </select>
+                    </div>
+                    <div class="field-label">
+                      <span class="field-label-text">Texture / finish</span>
+                      <input type="text" name="textureFinish" placeholder="SPI-A2, VDI, matte, textured" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="field-label">
+                      <span class="field-label-text">T0 sample plan</span>
+                      <input type="text" name="t0SamplePlan" placeholder="T0, corrections, approval plan" />
+                    </div>
+                    <div class="field-label">
+                      <span class="field-label-text">Sampling rounds</span>
+                      <input type="number" min="1" name="sampleRounds" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="field-label">
+                      <span class="field-label-text">Production quantity</span>
+                      <input type="number" min="1" name="productionQuantity" />
+                    </div>
+                    <div class="field-label">
+                      <span class="field-label-text">Tooling cost</span>
+                      <input type="number" min="0" name="toolingCost" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="field-label">
+                      <span class="field-label-text">Part unit price</span>
+                      <input type="number" min="0" name="partUnitPrice" />
+                    </div>
+                    <div class="field-label">
+                      <span class="field-label-text">Tool lead time (days)</span>
+                      <input type="number" min="1" name="toolLeadDays" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="field-label">
+                      <span class="field-label-text">Production lead time (days)</span>
+                      <input type="number" min="1" name="productionLeadDays" />
+                    </div>
+                    <div class="field-label">
+                      <span class="field-label-text">Commercial notes</span>
+                      <input type="text" name="commercialNotes" placeholder="Gates, side actions, texture notes" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Standard / CNC / Sheet metal fields -->
+                <div id="checkoutStandardFields" hidden>
+                  <p class="checkout-section-title" style="padding:0; margin-bottom:0.75rem;">Final part config</p>
+                  <div class="form-row">
+                    <div class="field-label">
+                      <span class="field-label-text">Batch quantity</span>
+                      <input type="number" min="1" name="batchQuantity" />
+                    </div>
+                    <div class="field-label">
+                      <span class="field-label-text">Part unit price</span>
+                      <input type="number" min="0" name="partUnitPriceStandard" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="field-label">
+                      <span class="field-label-text">Finish / material confirmation</span>
+                      <input type="text" name="finishConfirmation" placeholder="As quoted / anodized / powder coat" />
+                    </div>
+                    <div class="field-label">
+                      <span class="field-label-text">Inspection option</span>
+                      <select name="inspectionOption">
+                        <option value="Standard inspection">Standard inspection</option>
+                        <option value="Inspection with report">Inspection with report</option>
+                        <option value="CMM inspection">CMM inspection</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Commercial notes</span>
+                    <input type="text" name="commercialNotesStandard" placeholder="Batch packaging, QC, finish notes" />
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn-primary">Save Commercial Setup</button>
+                  <p id="checkoutCommercialStatus" class="muted-text"></p>
+                </div>
+              </form>
+            </div>
+
+            <!-- Step 3: Delivery dates -->
+            <div class="card">
+              <div class="step-head">
+                <div class="step-head-copy">
+                  <p class="section-kicker">Step 3</p>
+                  <h2>Choose Delivery Date</h2>
+                </div>
+              </div>
+              <form id="checkoutDeliveryForm" class="panel-form">
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">Delivery speed</span>
+                    <select name="deliverySpeed">
+                      <option value="Economy">Economy</option>
+                      <option value="Standard">Standard</option>
+                      <option value="Expedited">Expedited</option>
+                    </select>
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Target delivery date</span>
+                    <input type="date" name="deliveryDate" />
+                  </div>
+                </div>
+                <div id="checkoutInjectionDeliveryFields" class="form-row" hidden>
+                  <div class="field-label">
+                    <span class="field-label-text">T0 sample date</span>
+                    <input type="date" name="t0SampleDate" />
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Production delivery date</span>
+                    <input type="date" name="productionDeliveryDate" />
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn-primary">Save Delivery Dates</button>
+                  <p id="checkoutDeliveryStatus" class="muted-text"></p>
+                </div>
+              </form>
+            </div>
+
+            <!-- Step 4: Shipping & trade terms -->
+            <div class="card">
+              <div class="step-head">
+                <div class="step-head-copy">
+                  <p class="section-kicker">Step 4</p>
+                  <h2>Shipping &amp; Trade Terms</h2>
+                </div>
+              </div>
+              <form id="checkoutShippingForm" class="panel-form">
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">Shipping method</span>
+                    <select name="shippingMethod">
+                      <option value="Air">Air</option>
+                      <option value="Road">Road</option>
+                      <option value="Customer Pickup">Customer Pickup</option>
+                      <option value="EXW / Freight Collect">EXW / Freight Collect</option>
+                    </select>
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Incoterm</span>
+                    <select name="incoterm">
+                      <option value="DDP">DDP</option>
+                      <option value="EXW">EXW</option>
+                      <option value="Delivered">Delivered</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">Importer model</span>
+                    <select name="importerModel">
+                      <option value="Customer importer">Customer importer</option>
+                      <option value="Brahmworks DDP">Brahmworks DDP</option>
+                      <option value="N/A - domestic">N/A – domestic</option>
+                    </select>
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Shipping charge</span>
+                    <input type="number" min="0" step="0.01" name="shippingCost" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">Shipping name</span>
+                    <input type="text" name="shippingName" placeholder="Consignee / receiving team" />
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Shipping phone</span>
+                    <input type="text" name="shippingPhone" placeholder="+91…" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">Country</span>
+                    <input type="text" name="country" placeholder="India" />
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">State / region</span>
+                    <input type="text" name="state" placeholder="Karnataka" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">City</span>
+                    <input type="text" name="city" placeholder="Bengaluru" />
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Postal code</span>
+                    <input type="text" name="postalCode" placeholder="560001" />
+                  </div>
+                </div>
+                <div class="field-label">
+                  <span class="field-label-text">Address line 1</span>
+                  <input type="text" name="addressLine1" placeholder="Shipping street address" />
+                </div>
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">Importer name</span>
+                    <input type="text" name="importerName" placeholder="Used when customer acts as importer" />
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Importer tax ID</span>
+                    <input type="text" name="importerTaxId" placeholder="GST / VAT / EORI" />
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn-primary">Save Shipping Terms</button>
+                  <p id="checkoutShippingStatus" class="muted-text"></p>
+                </div>
+              </form>
+            </div>
+
+            <!-- Step 5: Taxes -->
+            <div class="card">
+              <div class="step-head">
+                <div class="step-head-copy">
+                  <p class="section-kicker">Step 5</p>
+                  <h2>Taxes</h2>
+                </div>
+              </div>
+              <form id="checkoutTaxForm" class="panel-form">
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">GSTIN</span>
+                    <input type="text" name="gstin" placeholder="GSTIN if applicable" />
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Tax mode</span>
+                    <select name="taxMode">
+                      <option value="Auto GST">Auto GST</option>
+                      <option value="IGST">IGST</option>
+                      <option value="CGST / SGST">CGST / SGST</option>
+                      <option value="Export / LUT">Export / LUT</option>
+                      <option value="Zero rated">Zero rated</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="field-label">
+                    <span class="field-label-text">Tax rate (%)</span>
+                    <input type="number" min="0" step="0.1" name="taxRate" />
+                  </div>
+                  <div class="field-label">
+                    <span class="field-label-text">Duty rate (%)</span>
+                    <input type="number" min="0" step="0.1" name="dutyRate" />
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn-primary">Save Tax Rules</button>
+                  <p id="checkoutTaxStatus" class="muted-text"></p>
+                </div>
+              </form>
+            </div>
+
+            <!-- Step 6: Payment -->
+            <div class="card">
+              <div class="step-head">
+                <div class="step-head-copy">
+                  <p class="section-kicker">Step 6</p>
+                  <h2>Payment</h2>
+                </div>
+              </div>
+              <div id="checkoutPaymentGate" class="payment-gate"></div>
+              <div class="payment-actions">
+                <button id="checkoutPayButton" type="button" class="btn-primary btn-full">Pay with Razorpay</button>
+                <p id="checkoutPaymentStatus" class="muted-text">Razorpay Standard Checkout will create the payment order after commercial confirmation.</p>
+              </div>
+            </div>
+
+          </div><!-- /checkout-steps -->
+
+          <!-- Order summary panel -->
+          <aside class="checkout-panel">
+            <div class="card">
+              <div class="step-head">
+                <div class="step-head-copy">
+                  <p class="section-kicker">Order Summary</p>
+                  <h2>Live Preview</h2>
+                </div>
+              </div>
+              <div class="checkout-summary-hero">
+                <div class="csh-item">
+                  <span>Status</span>
+                  <strong id="checkoutSummaryStatus">Draft</strong>
+                </div>
+                <div class="csh-item">
+                  <span>Payment</span>
+                  <strong id="checkoutSummaryPayment">Pending</strong>
+                </div>
+                <div class="csh-item">
+                  <span>Incoterm</span>
+                  <strong id="checkoutSummaryIncoterm">—</strong>
+                </div>
+                <div class="csh-item">
+                  <span>Delivery</span>
+                  <strong id="checkoutSummaryDelivery">—</strong>
+                </div>
+              </div>
+              <div id="checkoutSummaryChips" class="checkout-summary-chips"></div>
+              <div id="checkoutSummaryCards" class="list-stack"></div>
+              <div id="checkoutSummaryRows" class="list-stack"></div>
+            </div>
+          </aside>
+
+        </div><!-- /checkout-layout -->
+      </div><!-- /subpage-body -->
+    </div><!-- /subpage-root -->
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="quote-checkout.js?v=20260427"></script>
+  </body>
+</html>

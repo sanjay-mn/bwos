@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brahmworks — Operations Platform</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap" />
+    <link rel="stylesheet" href="styles.css?v=20260427" />
+  </head>
+  <body>
+    <div class="app-shell">
+
+      <!-- ═══════════════════════════════════════════════ LOGIN VIEW -->
+      <section id="loginView" class="login-view">
+        <div class="login-split">
+
+          <!-- Brand / marketing panel -->
+          <aside class="login-brand">
+            <div class="login-brand-logo">
+              <span class="logo-mark">BW</span>
+              <span class="logo-wordmark">BRAHMWORKS</span>
+            </div>
+
+            <div class="login-brand-hero">
+              <p class="login-brand-eyebrow">Manufacturing Operations Platform</p>
+              <h1 class="login-brand-headline">From quote to delivery,<br>one connected workspace.</h1>
+              <p class="login-brand-sub">Upload CAD, configure your process, and move from concept to manufactured parts — with inventory, procurement, and logistics built in.</p>
+            </div>
+
+            <!-- Process selector on landing -->
+            <div class="login-process-block">
+              <p class="login-process-label">Start a quote</p>
+              <div class="login-process-grid" id="landingProcessGrid">
+                <button type="button" class="login-process-btn active" data-landing-process="CNC Machining">
+                  <span class="lpb-icon">⚙</span>
+                  <span class="lpb-label">CNC Machining</span>
+                </button>
+                <button type="button" class="login-process-btn" data-landing-process="Sheet Metal">
+                  <span class="lpb-icon">▣</span>
+                  <span class="lpb-label">Sheet Metal</span>
+                </button>
+                <button type="button" class="login-process-btn" data-landing-process="3D Printing">
+                  <span class="lpb-icon">◌</span>
+                  <span class="lpb-label">3D Printing</span>
+                </button>
+                <button type="button" class="login-process-btn" data-landing-process="Injection Molding">
+                  <span class="lpb-icon">◧</span>
+                  <span class="lpb-label">Tooling</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="login-brand-trust">
+              <div class="trust-chips">
+                <span>Medical Devices</span><span>Consumer Hardware</span>
+                <span>Automation</span><span>EV Components</span>
+                <span>Industrial</span><span>Electronics</span>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Auth panel -->
+          <div class="login-auth">
+            <div class="auth-card">
+              <div class="auth-tabs" role="tablist">
+                <button type="button" class="auth-mode-tab active" data-auth-view="signup" aria-selected="true">Create account</button>
+                <button type="button" class="auth-mode-tab" data-auth-view="login" aria-selected="false">Sign in</button>
+              </div>
+
+              <!-- Signup stage -->
+              <section id="signupStage" class="auth-stage">
+                <div class="auth-stage-head">
+                  <h2>Get instant quotes</h2>
+                  <p>Create your account and submit your first quote in minutes.</p>
+                </div>
+
+                <!-- Hidden process value synced from landing grid -->
+                <input type="hidden" id="customerSignupProcess" value="CNC Machining" />
+                <div class="signup-process-badge">
+                  <span>Process:</span>
+                  <strong id="customerSignupProcessDisplay">CNC Machining</strong>
+                </div>
+
+                <form id="customerAccessForm" class="auth-form">
+                  <div class="form-row">
+                    <label class="field-label">
+                      Full Name
+                      <input type="text" name="name" placeholder="Your full name" required />
+                    </label>
+                    <label class="field-label">
+                      Company
+                      <input type="text" name="company" placeholder="Company name" />
+                    </label>
+                  </div>
+                  <div class="form-row">
+                    <label class="field-label">
+                      Work Email
+                      <input type="email" name="email" placeholder="name@company.com" required />
+                    </label>
+                    <label class="field-label">
+                      Phone
+                      <input type="text" name="phone" placeholder="+91 ..." />
+                    </label>
+                  </div>
+                  <label class="field-label">
+                    Password
+                    <input type="password" name="password" placeholder="Minimum 8 characters" required />
+                  </label>
+                  <button type="submit" id="customerAccessSubmitButton" class="btn-primary btn-full">Get Instant Quote →</button>
+                </form>
+                <p id="customerAccessError" class="field-error"></p>
+                <p class="auth-switch-line">Already have an account? <button type="button" class="auth-inline-link" data-auth-view-target="login">Sign in</button></p>
+              </section>
+
+              <!-- Login stage -->
+              <section id="loginStage" class="auth-stage hidden">
+                <div class="auth-stage-head">
+                  <h2>Welcome back</h2>
+                  <p>Sign in to your Brahmworks workspace.</p>
+                </div>
+                <form id="loginForm" class="auth-form">
+                  <label class="field-label">
+                    Email
+                    <input type="email" name="email" placeholder="admin@brahmworks.com" required autocomplete="username" />
+                  </label>
+                  <label class="field-label">
+                    Password
+                    <input type="password" name="password" placeholder="Your password" required autocomplete="current-password" />
+                  </label>
+                  <button type="submit" class="btn-primary btn-full">Enter Workspace →</button>
+                </form>
+                <details class="demo-hint">
+                  <summary>Demo credentials</summary>
+                  <p>admin@brahmworks.com / brahmworks123</p>
+                  <p>ops@brahmworks.com / ops12345</p>
+                  <p>procurement@brahmworks.com / purchase123</p>
+                </details>
+                <p id="loginError" class="field-error"></p>
+                <p class="auth-switch-line">New to Brahmworks? <button type="button" class="auth-inline-link" data-auth-view-target="signup">Create account</button></p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════ APP VIEW -->
+      <section id="appView" class="app-view hidden" hidden>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+          <div class="sidebar-brand">
+            <span class="sidebar-logo-mark">BW</span>
+            <span class="sidebar-logo-text">Brahmworks</span>
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close menu">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+
+          <nav class="sidebar-nav" id="tabs">
+            <div class="nav-group">
+              <span class="nav-group-label">Main</span>
+              <button type="button" class="tab active" data-tab="overview" aria-selected="true">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                <span>Overview</span>
+              </button>
+              <button type="button" class="tab" data-tab="quotes" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>Quotes</span>
+              </button>
+              <button type="button" class="tab" data-tab="requests" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                <span>Requests</span>
+              </button>
+            </div>
+
+            <div class="nav-group">
+              <span class="nav-group-label">Operations</span>
+              <button type="button" class="tab" data-tab="inventory" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 10V11"/></svg>
+                <span>Inventory</span>
+              </button>
+              <button type="button" class="tab" data-tab="suppliers" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>
+                <span>Suppliers</span>
+              </button>
+              <button type="button" class="tab" data-tab="purchaseOrders" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>
+                <span>Purchase Orders</span>
+              </button>
+              <button type="button" class="tab" data-tab="logistics" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3m3.5 6.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm0 0H14V9h4l3 4.5"/></svg>
+                <span>Logistics</span>
+              </button>
+            </div>
+
+            <div class="nav-group">
+              <span class="nav-group-label">CRM</span>
+              <button type="button" class="tab" data-tab="customers" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                <span>Customers</span>
+              </button>
+              <button type="button" class="tab" data-tab="projects" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                <span>Projects</span>
+              </button>
+              <button type="button" class="tab" data-tab="projectWorkspace" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span>Workspace</span>
+              </button>
+            </div>
+
+            <div class="nav-group">
+              <span class="nav-group-label">Admin</span>
+              <button type="button" class="tab" data-tab="reports" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <span>Reports</span>
+              </button>
+              <button type="button" class="tab" data-tab="users" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                <span>Users</span>
+              </button>
+              <button type="button" class="tab" data-tab="profile" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Profile</span>
+              </button>
+              <button type="button" class="tab" data-tab="blogs" aria-selected="false">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253z"/></svg>
+                <span>Journal</span>
+              </button>
+            </div>
+          </nav>
+
+          <div class="sidebar-foot">
+            <button id="workspaceDetailsButton" class="sidebar-user-btn" type="button" aria-haspopup="dialog" aria-expanded="false">
+              <span class="avatar-badge workspace-chip-avatar">BW</span>
+              <span class="sidebar-user-info">
+                <span class="workspace-chip-label">Workspace</span>
+                <span class="sidebar-user-sub">Account settings</span>
+              </span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- Mobile overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Content area -->
+        <div class="app-content">
+          <!-- Topbar -->
+          <header class="topbar">
+            <button class="topbar-menu-btn" id="sidebarOpenBtn" aria-label="Open menu">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+            <div class="topbar-search">
+              <svg class="topbar-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input id="workspaceSearchInput" type="search" placeholder="Search projects, suppliers, inventory…" />
+            </div>
+            <div class="topbar-actions">
+              <button id="themeToggleBtn" class="btn-theme-toggle" type="button" aria-label="Toggle light/dark mode" title="Toggle theme">
+                <!-- Sun icon (shown in dark mode) -->
+                <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <!-- Moon icon (shown in light mode) -->
+                <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+              </button>
+              <button id="workspaceDetailsButton2" class="topbar-user-btn secondary-button" type="button" style="display:none"></button>
+            </div>
+          </header>
+
+          <!-- KPI metrics row -->
+          <section class="metrics" id="metrics"></section>
+
+          <!-- Tab panels -->
+          <main class="dashboard">
+
+            <!-- ── OVERVIEW ─────────────────────────────────────── -->
+            <section id="overviewTab" class="tab-panel active">
+              <div class="panel-header">
+                <h2 class="panel-title">Overview</h2>
+              </div>
+              <div class="two-col-grid">
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">At Risk</span>
+                    <h3 class="card-title">Low Stock Radar</h3>
+                  </div>
+                  <div id="lowStockList" class="list-stack"></div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">Live Feed</span>
+                    <h3 class="card-title">Recent Movements</h3>
+                  </div>
+                  <div id="movementLog" class="list-stack"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── QUOTES ──────────────────────────────────────── -->
+            <section id="quotesTab" class="tab-panel" hidden>
+              <div class="panel-header">
+                <h2 class="panel-title">New Quote Request</h2>
+              </div>
+              <div class="quote-layout">
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">Process</span>
+                    <h3 class="card-title">Configure Quote</h3>
+                  </div>
+                  <div class="quote-process-grid" id="quoteProcessGrid">
+                    <button type="button" class="quote-process-card active" data-process="CNC Machining">
+                      <span class="quote-process-icon">⚙</span>
+                      <span class="quote-process-copy"><strong>Machining</strong><span>Milling, turning, 3-axis, 5-axis</span></span>
+                    </button>
+                    <button type="button" class="quote-process-card" data-process="Sheet Metal">
+                      <span class="quote-process-icon">▣</span>
+                      <span class="quote-process-copy"><strong>Sheet Metal</strong><span>Laser cutting, bending, welding</span></span>
+                    </button>
+                    <button type="button" class="quote-process-card" data-process="3D Printing">
+                      <span class="quote-process-icon">◌</span>
+                      <span class="quote-process-copy"><strong>3D Printing</strong><span>FDM, SLA, SLS, MJF, DMLS</span></span>
+                    </button>
+                    <button type="button" class="quote-process-card" data-process="Injection Molding">
+                      <span class="quote-process-icon">◧</span>
+                      <span class="quote-process-copy"><strong>Tooling</strong><span>Injection molding, bridge production</span></span>
+                    </button>
+                  </div>
+                  <form id="publicQuoteForm" class="panel-form">
+                    <input type="hidden" name="process" id="publicQuoteProcessValue" value="CNC Machining" />
+                    <div class="form-row">
+                      <label class="field-label">Name <input type="text" name="name" placeholder="Customer name" required /></label>
+                      <label class="field-label">Company <input type="text" name="company" placeholder="Company name" /></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Email <input type="email" name="email" placeholder="name@company.com" required /></label>
+                      <label class="field-label">Phone <input type="text" name="phone" placeholder="+91…" /></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Process <input type="text" id="publicQuoteProcessDisplay" value="CNC Machining" readonly /></label>
+                      <label class="field-label">Quantity <input type="number" name="quantity" min="1" value="1" required /></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Design Units <select name="designUnits" id="publicQuoteDesignUnits"></select></label>
+                      <label class="field-label">Quote Units <select name="units" id="publicQuoteUnits"></select></label>
+                    </div>
+                    <div id="publicQuoteOptionFields" class="quote-option-grid"></div>
+                    <label class="field-label">Notes <textarea name="notes" rows="3" placeholder="Critical features, delivery targets, special requirements…"></textarea></label>
+                    <label class="field-label">Upload File <input type="file" id="publicQuoteFile" name="file" accept=".step,.stp,.stl,.iges,.igs,.pdf,.png,.jpg,.jpeg,.zip" required /></label>
+                    <p id="publicQuoteStatus" class="field-hint">Upload a STEP, STL, drawing, or compressed RFQ package up to 45 MB.</p>
+                    <button type="submit" id="publicQuoteSubmitButton" class="btn-primary">Get Instant Quote Range</button>
+                  </form>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">Estimate</span>
+                    <h3 class="card-title">Instant Budget Range</h3>
+                  </div>
+                  <div id="publicQuoteResult" class="empty-state quote-result-empty">Submit a file and we'll show an instant budgetary range with an estimated lead time.</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── REQUESTS ────────────────────────────────────── -->
+            <section id="requestsTab" class="tab-panel" hidden>
+              <div class="panel-header">
+                <h2 class="panel-title">Quote Requests</h2>
+              </div>
+              <div class="two-col-grid">
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">Incoming</span>
+                    <h3 class="card-title">Submitted Requests</h3>
+                  </div>
+                  <div id="quoteRequestList" class="list-stack"></div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">Review</span>
+                    <h3 class="card-title">Quote Response Controls</h3>
+                  </div>
+                  <form id="quoteReviewForm" class="panel-form">
+                    <label class="field-label">Quote Request <select name="quoteId" id="quoteRequestSelect"></select></label>
+                    <label class="field-label">Status
+                      <select name="status" id="quoteStatusSelect">
+                        <option value="New">New</option>
+                        <option value="Reviewing">Reviewing</option>
+                        <option value="Quoted">Quoted</option>
+                        <option value="Needs Clarification">Needs Clarification</option>
+                        <option value="Closed">Closed</option>
+                      </select>
+                    </label>
+                    <label class="field-label">Internal Notes <textarea name="adminNotes" id="quoteAdminNotes" rows="5" placeholder="Manufacturing notes, price assumptions, follow-up actions…"></textarea></label>
+                    <button type="submit" class="btn-primary">Update Quote Request</button>
+                  </form>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── INVENTORY ───────────────────────────────────── -->
+            <section id="inventoryTab" class="tab-panel" hidden>
+              <div class="panel-header">
+                <h2 class="panel-title">Inventory</h2>
+              </div>
+              <div class="two-col-grid">
+                <div class="card" id="inventoryFormPanel">
+                  <div class="card-header">
+                    <span class="card-kicker">Catalog</span>
+                    <h3 class="card-title">Add Inventory Item</h3>
+                  </div>
+                  <form id="inventoryForm" class="panel-form">
+                    <label class="field-label">Item Name <input type="text" name="name" required /></label>
+                    <div class="form-row">
+                      <label class="field-label">SKU <input type="text" name="sku" required /></label>
+                      <label class="field-label">Category <input type="text" name="category" required /></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Quantity <input type="number" name="quantity" min="0" value="0" required /></label>
+                      <label class="field-label">Low Stock Threshold <input type="number" name="threshold" min="0" value="10" required /></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Unit Cost <input type="number" name="cost" min="0" step="0.01" required /></label>
+                      <label class="field-label">Unit <input type="text" name="unit" value="pcs" required /></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Customer <select name="customerId" id="inventoryCustomerSelect"></select></label>
+                      <label class="field-label">Project <select name="projectId" id="inventoryProjectSelect"></select></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Supplier <select name="supplierId" id="supplierSelect"></select></label>
+                      <label class="field-label">Location <input type="text" name="location" placeholder="Rack / Bin location" /></label>
+                    </div>
+                    <button type="submit" class="btn-primary">Create Item</button>
+                  </form>
+                </div>
+                <div class="card" id="movementPanel">
+                  <div class="card-header">
+                    <span class="card-kicker">Movement</span>
+                    <h3 class="card-title">Adjust Stock</h3>
+                  </div>
+                  <form id="movementForm" class="panel-form">
+                    <label class="field-label">Item <select name="inventoryId" id="itemSelect"></select></label>
+                    <div class="form-row">
+                      <label class="field-label">Action
+                        <select name="type">
+                          <option value="in">Stock In</option>
+                          <option value="out">Stock Out</option>
+                        </select>
+                      </label>
+                      <label class="field-label">Quantity <input type="number" name="quantity" min="1" value="1" required /></label>
+                    </div>
+                    <label class="field-label">Note <input type="text" name="note" placeholder="Shipment received / issued to production" /></label>
+                    <button type="submit" class="btn-primary">Record Movement</button>
+                  </form>
+                  <p id="inventoryMessage" class="field-success"></p>
+                </div>
+              </div>
+
+              <div class="card mt-6">
+                <div class="card-toolbar">
+                  <div class="card-header">
+                    <span class="card-kicker">Stock</span>
+                    <h3 class="card-title">Current Inventory</h3>
+                  </div>
+                  <label class="search-field">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <input id="inventorySearchInput" type="search" placeholder="Search item, SKU, category…" />
+                  </label>
+                </div>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr>
+                      <th>Item</th><th>SKU</th><th>Category</th><th>Qty</th>
+                      <th>Threshold</th><th>Unit Cost</th><th>Supplier</th>
+                      <th>Location</th><th>Status</th><th>Actions</th>
+                    </tr></thead>
+                    <tbody id="inventoryTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── SUPPLIERS ───────────────────────────────────── -->
+            <section id="suppliersTab" class="tab-panel" hidden>
+              <div class="panel-header">
+                <h2 class="panel-title">Suppliers</h2>
+              </div>
+
+              <div class="card" id="supplierFormPanel">
+                <div class="card-header">
+                  <span class="card-kicker">Vendor Master</span>
+                  <h3 class="card-title">Add Supplier</h3>
+                </div>
+                <form id="supplierForm" class="panel-form grid-form">
+                  <label class="field-label full-span">Supplier Name <input type="text" name="name" required /></label>
+                  <div class="form-row">
+                    <label class="field-label">Contact Person <input type="text" name="contactPerson" /></label>
+                    <label class="field-label">Industry <input type="text" name="industry" list="supplierIndustryOptions" placeholder="Electronics, Fabrication…" /></label>
+                  </div>
+                  <div class="form-row">
+                    <label class="field-label">Customer <select name="customerId" id="supplierCustomerSelect"></select></label>
+                    <label class="field-label">Project <select name="projectId" id="supplierProjectSelect"></select></label>
+                  </div>
+                  <div class="form-row">
+                    <label class="field-label">City <input type="text" name="city" /></label>
+                    <label class="field-label">Email <input type="email" name="email" /></label>
+                  </div>
+                  <div class="form-row">
+                    <label class="field-label">Phone <input type="text" name="phone" /></label>
+                    <label class="field-label">Lead Time (days) <input type="number" name="leadTimeDays" min="0" value="0" /></label>
+                    <label class="field-label">Rating <input type="number" name="rating" min="0" max="5" step="0.1" value="4.5" /></label>
+                  </div>
+                  <button type="submit" class="btn-primary">Save Supplier</button>
+                  <datalist id="supplierIndustryOptions">
+                    <option value="Automation & Control"></option><option value="Electronics & Components"></option>
+                    <option value="Fabrication & Machining"></option><option value="Facilities & Housekeeping"></option>
+                    <option value="Metals & Raw Material"></option><option value="Hardware & Tools"></option>
+                    <option value="Industrial Services"></option><option value="IT & Office"></option>
+                    <option value="Logistics & Transport"></option><option value="Packaging & Printing"></option>
+                    <option value="General"></option>
+                  </datalist>
+                </form>
+              </div>
+
+              <div class="card mt-6">
+                <div class="card-header">
+                  <span class="card-kicker">Browse</span>
+                  <h3 class="card-title">Supplier Directory</h3>
+                  <div class="card-actions">
+                    <button id="supplierGroupingButton" class="btn-secondary" type="button">Grouped by Industry</button>
+                  </div>
+                </div>
+                <form id="supplierAssistantForm" class="supplier-assistant-form">
+                  <label class="field-label">Supplier Requirement
+                    <textarea id="supplierRequirementInput" rows="2" placeholder="Describe what you need — e.g. CNC laser cutting vendor in Bengaluru for stainless steel enclosures."></textarea>
+                  </label>
+                  <div class="supplier-assistant-row">
+                    <label class="field-label inline-label">Scope
+                      <select id="supplierScopeSelect">
+                        <option value="local">Local Vendors</option>
+                        <option value="global">Global Vendors</option>
+                      </select>
+                    </label>
+                    <div class="btn-group">
+                      <button type="submit" class="btn-primary">Find Vendors</button>
+                      <button id="resetSupplierSearchButton" type="button" class="btn-secondary">Show All</button>
+                    </div>
+                  </div>
+                </form>
+                <div id="supplierAssistantSummary" class="assistant-summary empty-state">Describe your requirement and I'll shortlist the best matches from the directory.</div>
+                <div id="supplierApprovalFilters" class="pill-list"></div>
+                <div id="supplierIndustryFilters" class="pill-list"></div>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr>
+                      <th>Supplier</th><th>Industry</th><th>Approval</th><th>Contact</th>
+                      <th>City</th><th>Lead Time</th><th>Rating</th><th>Actions</th>
+                    </tr></thead>
+                    <tbody id="supplierTableBody"></tbody>
+                  </table>
+                </div>
+                <div class="table-foot">
+                  <p id="supplierCountText" class="text-muted"></p>
+                  <button id="showMoreSuppliersButton" class="btn-secondary">Show More</button>
+                </div>
+              </div>
+
+              <div class="card mt-6">
+                <div class="card-header">
+                  <span class="card-kicker">Online</span>
+                  <h3 class="card-title">Global Vendor Results</h3>
+                </div>
+                <div id="onlineVendorList" class="list-stack">
+                  <div class="empty-state">Choose <strong>Global Vendors</strong> in the assistant to search outside the directory.</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── PURCHASE ORDERS ─────────────────────────────── -->
+            <section id="purchaseOrdersTab" class="tab-panel" hidden>
+              <div class="panel-header">
+                <h2 class="panel-title">Purchase Orders</h2>
+              </div>
+              <div class="two-col-grid">
+                <div class="card" id="purchaseOrderFormPanel">
+                  <div class="card-header">
+                    <span class="card-kicker">Procurement</span>
+                    <h3 class="card-title">Create Purchase Order</h3>
+                  </div>
+                  <form id="purchaseOrderForm" class="panel-form">
+                    <label class="field-label">Inventory Item <select name="inventoryId" id="poInventorySelect"></select></label>
+                    <div class="form-row">
+                      <label class="field-label">Customer <select name="customerId" id="poCustomerSelect"></select></label>
+                      <label class="field-label">Project <select name="projectId" id="poProjectSelect"></select></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Supplier <select name="supplierId" id="poSupplierSelect"></select></label>
+                      <label class="field-label">Status
+                        <select name="status">
+                          <option value="Pending">Pending</option>
+                          <option value="Approved">Approved</option>
+                          <option value="Received">Received</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Quantity <input type="number" name="quantity" min="1" value="1" required /></label>
+                      <label class="field-label">Unit Cost <input type="number" name="cost" min="0" step="0.01" required /></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Order Date <input type="date" name="orderDate" required /></label>
+                      <label class="field-label">Expected Date <input type="date" name="expectedDate" required /></label>
+                    </div>
+                    <label class="field-label">Notes <input type="text" name="notes" placeholder="Priority, project reference…" /></label>
+                    <button type="submit" class="btn-primary">Create Purchase Order</button>
+                  </form>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">Open Orders</span>
+                    <h3 class="card-title">PO Queue</h3>
+                  </div>
+                  <div id="purchaseOrderList" class="list-stack"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── CUSTOMERS ───────────────────────────────────── -->
+            <section id="customersTab" class="tab-panel" hidden>
+              <div class="panel-header">
+                <h2 class="panel-title">Customers</h2>
+              </div>
+              <div class="two-col-grid">
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">New</span>
+                    <h3 class="card-title">Add Customer</h3>
+                  </div>
+                  <form id="customerForm" class="panel-form">
+                    <label class="field-label">Customer Name <input type="text" name="name" required /></label>
+                    <div class="form-row">
+                      <label class="field-label">Contact Person <input type="text" name="contactPerson" /></label>
+                      <label class="field-label">Phone <input type="text" name="phone" /></label>
+                    </div>
+                    <label class="field-label">Email <input type="email" name="email" /></label>
+                    <button type="submit" class="btn-primary">Create Customer</button>
+                  </form>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">Directory</span>
+                    <h3 class="card-title">All Customers</h3>
+                  </div>
+                  <div class="table-wrap">
+                    <table>
+                      <thead><tr><th>Customer</th><th>Contact</th><th>Phone</th><th>Email</th><th>Projects</th></tr></thead>
+                      <tbody id="customerTableBody"></tbody>
+                    </table>
+                  </div>
+                  <div class="table-foot"><p id="customerCountText" class="text-muted"></p></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── PROJECTS ────────────────────────────────────── -->
+            <section id="projectsTab" class="tab-panel" hidden>
+              <div class="panel-header">
+                <h2 class="panel-title">Projects</h2>
+              </div>
+              <div class="two-col-grid">
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">New Project</span>
+                    <h3 class="card-title">Create Project</h3>
+                  </div>
+                  <form id="projectForm" class="panel-form">
+                    <label class="field-label">Project Name <input type="text" name="name" id="projectNameInput" required /></label>
+                    <div class="form-row">
+                      <label class="field-label">Customer <select name="customerId" id="projectCustomerSelect"></select></label>
+                      <label class="field-label">Status
+                        <select name="status">
+                          <option value="Active">Active</option>
+                          <option value="On Hold">On Hold</option>
+                          <option value="Completed">Completed</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="service-picker">
+                      <p class="field-label-text">Linked Services</p>
+                      <div class="form-row form-row-end">
+                        <label class="field-label">Service <select id="projectServiceSelect"></select></label>
+                        <button id="addProjectServiceButton" type="button" class="btn-secondary">Add</button>
+                      </div>
+                      <div id="projectSelectedServices" class="pill-list"></div>
+                      <input type="hidden" name="serviceIds" id="projectServiceIds" />
+                    </div>
+                    <label class="field-label">Notes <input type="text" name="notes" placeholder="Customer scope, line item, fabrication package" /></label>
+                    <button type="submit" class="btn-primary">Create Project</button>
+                  </form>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <span class="card-kicker">Services</span>
+                    <h3 class="card-title">Add Service</h3>
+                  </div>
+                  <form id="serviceForm" class="panel-form">
+                    <label class="field-label">Service Name <input type="text" name="name" placeholder="Add a new Brahmworks service" required /></label>
+                    <button type="submit" class="btn-primary">Create Service</button>
+                  </form>
+                  <div id="serviceList" class="pill-list mt-4"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── PROJECT WORKSPACE ───────────────────────────── -->
+            <section id="projectWorkspaceTab" class="tab-panel" hidden>
+              <div class="panel-header">
+                <h2 class="panel-title">Project Workspace</h2>
+              </div>
+
+              <div class="card">
+                <div class="card-toolbar">
+                  <div class="card-header">
+                    <span class="card-kicker">Projects</span>
+                    <h3 class="card-title">Select Project</h3>
+                  </div>
+                  <div class="card-actions">
+                    <p id="projectSelectionText" class="text-muted"></p>
+                    <button type="button" id="openProjectCreateButton" class="btn-secondary" aria-label="Add project">+ New</button>
+                  </div>
+                </div>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>Project</th><th>Customer</th><th>Status</th><th>Services</th><th>Documents</th><th>Actions</th></tr></thead>
+                    <tbody id="projectTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div id="projectWorkspace" class="card mt-6">
+                <div class="card-header">
+                  <span class="card-kicker">Workspace</span>
+                  <h3 class="card-title" id="projectWorkspaceTitle">Project Documents</h3>
+                  <p class="text-muted" id="projectWorkspaceMeta"></p>
+                </div>
+
+                <div class="two-col-grid mt-4">
+                  <div class="card card-inset">
+                    <div class="card-header">
+                      <span class="card-kicker">Upload</span>
+                      <h3 class="card-title">Add Document</h3>
+                    </div>
+                    <form id="projectDocumentForm" class="panel-form">
+                      <label class="field-label">Document Type
+                        <select name="category" id="projectDocumentCategory">
+                          <option value="Kickoff Document">Kickoff Document</option>
+                          <option value="Purchase Order">Purchase Order</option>
+                          <option value="Proforma Invoice">Proforma Invoice</option>
+                          <option value="Shipping Document">Shipping Document</option>
+                          <option value="CAD File">CAD File</option>
+                          <option value="STEP File">STEP File</option>
+                          <option value="Gerber File">Gerber File</option>
+                          <option value="BOM">BOM</option>
+                          <option value="Drawing">Drawing</option>
+                          <option value="Quote">Quote</option>
+                          <option value="RFQ">RFQ</option>
+                          <option value="SOW">Scope of Work</option>
+                          <option value="NDA">NDA</option>
+                          <option value="Quality Document">Quality Document</option>
+                          <option value="Test Report">Test Report</option>
+                          <option value="Installation Guide">Installation Guide</option>
+                          <option value="Photo">Photo</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </label>
+                      <label class="field-label">Title <input type="text" name="title" placeholder="Document title" required /></label>
+                      <label class="field-label">Notes <input type="text" name="notes" placeholder="Version, release remark" /></label>
+                      <label class="field-label">File <input type="file" name="file" id="projectDocumentFile" required /></label>
+                      <p id="projectDocumentStatus" class="field-hint">Select a project and file to upload.</p>
+                      <button type="submit" id="projectDocumentSubmitButton" class="btn-primary">Upload Document</button>
+                    </form>
+                  </div>
+
+                  <div class="card card-inset" id="projectDocumentPreviewCard">
+                    <div class="card-toolbar">
+                      <div class="card-header">
+                        <span class="card-kicker">Preview</span>
+                        <h3 class="card-title" id="projectDocumentViewerTitle">Select a document</h3>
+                      </div>
+                      <button id="projectDocumentFullscreenButton" class="btn-secondary" type="button">Fullscreen</button>
+                    </div>
+                    <div id="projectDocumentViewer" class="document-viewer empty-state">Choose a project document to preview it here.</div>
+                  </div>
+                </div>
+
+                <div class="card card-inset mt-4">
+                  <div class="card-header">
+                    <span class="card-kicker">Repository</span>
+                    <h3 class="card-title">Project Files</h3>
+                  </div>
+                  <div class="table-wrap">
+                    <table>
+                      <thead><tr><th>Type</th><th>Title</th><th>File</th><th>Added By</th><th>Updated</th><th>Actions</th></tr></thead>
+                      <tbody id="projectDocumentTableBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── REPORTS ─────────────────────────────────────── -->
+            <section id="reportsTab" class="tab-panel" hidden>
+              <div class="panel-header">
+                <h2 class="panel-title">Reports</h2>
+                <button id="exportReportButton" class="btn-secondary">Export Report</button>
+              </div>
+              <div class="two-col-grid">
+                <div class="card">
+                  <div class="card-header"><span class="card-kicker">Value View</span><h3 class="card-title">Top Inventory by Value</h3></div>
+                  <div id="topValueList" class="list-stack"></div>
+                </div>
+                <div class="card">
+                  <div class="card-header"><span class="card-kicker">Ops Snapshot</span><h3 class="card-title">Reports Summary</h3></div>
+                  <div id="reportSummary" class="list-stack"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── PROFILE ─────────────────────────────────────── -->
+            <section id="profileTab" class="tab-panel" hidden>
+              <div class="panel-header"><h2 class="panel-title">Profile</h2></div>
+              <div class="two-col-grid">
+                <div class="card">
+                  <div class="card-header"><span class="card-kicker">Account</span><h3 class="card-title">Profile Settings</h3></div>
+                  <form id="profileForm" class="panel-form">
+                    <label class="field-label">Name <input type="text" name="name" required /></label>
+                    <div class="form-row">
+                      <label class="field-label">Email <input type="email" name="email" readonly /></label>
+                      <label class="field-label">Role <input type="text" name="role" readonly /></label>
+                    </div>
+                    <label class="field-label">New Password <input type="password" name="password" placeholder="Leave blank to keep current password" /></label>
+                    <button type="submit" class="btn-primary">Update Profile</button>
+                  </form>
+                </div>
+                <div class="card">
+                  <div class="card-header"><span class="card-kicker">Access Summary</span><h3 class="card-title">Your Permissions</h3></div>
+                  <div id="profileSummary" class="list-stack"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── USERS ───────────────────────────────────────── -->
+            <section id="usersTab" class="tab-panel" hidden>
+              <div class="panel-header"><h2 class="panel-title">Users</h2></div>
+              <div class="two-col-grid">
+                <div class="card" id="userFormPanel">
+                  <div class="card-header"><span class="card-kicker">Admin</span><h3 class="card-title">Add User</h3></div>
+                  <form id="userForm" class="panel-form">
+                    <label class="field-label">Full Name <input type="text" name="name" required /></label>
+                    <div class="form-row">
+                      <label class="field-label">Email <input type="email" name="email" required /></label>
+                      <label class="field-label">Role
+                        <select name="role">
+                          <option value="Operations">Operations</option>
+                          <option value="Procurement">Procurement</option>
+                          <option value="Admin">Admin</option>
+                        </select>
+                      </label>
+                    </div>
+                    <label class="field-label">Temporary Password <input type="text" name="password" value="welcome123" required /></label>
+                    <button type="submit" class="btn-primary">Create User</button>
+                  </form>
+                </div>
+                <div class="card">
+                  <div class="card-header"><span class="card-kicker">Access Control</span><h3 class="card-title">User Roles</h3></div>
+                  <div id="userList" class="list-stack"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── LOGISTICS ───────────────────────────────────── -->
+            <section id="logisticsTab" class="tab-panel" hidden>
+              <div class="panel-header"><h2 class="panel-title">Logistics</h2></div>
+              <div class="two-col-grid">
+                <div class="card" id="challanFormPanel">
+                  <div class="card-header"><span class="card-kicker">Dispatch</span><h3 class="card-title">Create Delivery Challan</h3></div>
+                  <form id="challanForm" class="panel-form">
+                    <div class="form-row">
+                      <label class="field-label">Challan Type
+                        <select name="challanType">
+                          <option value="Returnable">Returnable</option>
+                          <option value="Non-Returnable">Non-Returnable</option>
+                        </select>
+                      </label>
+                      <label class="field-label">Linked PO <select name="poId" id="challanPoSelect"></select></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Customer <select name="customerId" id="challanCustomerSelect"></select></label>
+                      <label class="field-label">Project <select name="projectId" id="challanProjectSelect"></select></label>
+                    </div>
+                    <label class="field-label">Recipient Name <input type="text" name="recipientName" required /></label>
+                    <label class="field-label">Recipient Company <input type="text" name="recipientCompany" required /></label>
+                    <div class="form-row">
+                      <label class="field-label">Destination <input type="text" name="destination" required /></label>
+                      <label class="field-label">Vehicle Number <input type="text" name="vehicleNumber" /></label>
+                    </div>
+                    <label class="field-label">Notes <input type="text" name="notes" placeholder="Material dispatch notes" /></label>
+                    <button type="submit" class="btn-primary">Create Challan</button>
+                  </form>
+                </div>
+                <div class="card" id="packagingFormPanel">
+                  <div class="card-header"><span class="card-kicker">Packaging</span><h3 class="card-title">Create Packaging Document</h3></div>
+                  <form id="packagingForm" class="panel-form">
+                    <label class="field-label">Delivery Challan <select name="challanId" id="packagingChallanSelect"></select></label>
+                    <div class="form-row">
+                      <label class="field-label">Customer <select name="customerId" id="packagingCustomerSelect"></select></label>
+                      <label class="field-label">Project <select name="projectId" id="packagingProjectSelect"></select></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Package Count <input type="number" name="packageCount" min="1" value="1" required /></label>
+                      <label class="field-label">Gross Weight (kg) <input type="number" name="grossWeight" min="0" step="0.1" value="0" /></label>
+                    </div>
+                    <div class="form-row">
+                      <label class="field-label">Net Weight (kg) <input type="number" name="netWeight" min="0" step="0.1" value="0" /></label>
+                      <label class="field-label">Contents <input type="text" name="contents" placeholder="Packed materials / assemblies" /></label>
+                    </div>
+                    <label class="field-label">Notes <input type="text" name="notes" placeholder="Handling or packing notes" /></label>
+                    <button type="submit" class="btn-primary">Create Packaging Document</button>
+                  </form>
+                </div>
+              </div>
+              <div class="two-col-grid mt-6">
+                <div class="card">
+                  <div class="card-header"><span class="card-kicker">Dispatch Docs</span><h3 class="card-title">Delivery Challans</h3></div>
+                  <div id="challanList" class="list-stack"></div>
+                </div>
+                <div class="card">
+                  <div class="card-header"><span class="card-kicker">Packing Docs</span><h3 class="card-title">Packaging Documents</h3></div>
+                  <div id="packagingList" class="list-stack"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ── BLOGS ───────────────────────────────────────── -->
+            <section id="blogsTab" class="tab-panel" hidden>
+              <div class="panel-header"><h2 class="panel-title">Brahmworks Journal</h2></div>
+              <div class="blogs-layout">
+                <aside class="blogs-sidebar">
+                  <div class="blogs-sidebar-head">
+                    <span class="card-kicker">Knowledge Base</span>
+                    <span id="blogCount" class="blog-count-badge">0 guides</span>
+                  </div>
+                  <div id="blogList" class="list-stack blogs-list"></div>
+                </aside>
+                <div class="card blog-content-card">
+                  <div id="blogViewer" class="blog-viewer empty-state">Select a post to read the full article.</div>
+                </div>
+              </div>
+            </section>
+
+          </main><!-- .dashboard -->
+        </div><!-- .app-content -->
+      </section><!-- #appView -->
+    </div><!-- .app-shell -->
+
+    <!-- ═══════════════════════════════════════════════ METRIC TEMPLATE -->
+    <template id="metricTemplate">
+      <article class="metric-card">
+        <p class="metric-label"></p>
+        <h3 class="metric-value"></h3>
+        <p class="metric-note"></p>
+      </article>
+    </template>
+
+    <!-- ═══════════════════════════════════════════════ MODALS -->
+
+    <!-- Supplier editor -->
+    <div id="supplierEditorModal" class="modal-shell hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-action="close-supplier-modal"></div>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="supplierEditorTitle">
+        <div class="modal-header">
+          <div><span class="card-kicker">Edit Supplier</span><h2 id="supplierEditorTitle">Update Supplier</h2></div>
+          <button id="closeSupplierEditorButton" class="modal-close-btn" type="button" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <form id="supplierEditorForm" class="panel-form">
+          <label class="field-label">Supplier Name <input type="text" name="name" required /></label>
+          <div class="form-row">
+            <label class="field-label">Customer <select name="customerId" id="supplierEditorCustomerSelect"></select></label>
+            <label class="field-label">Project <select name="projectId" id="supplierEditorProjectSelect"></select></label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Industry <input type="text" name="industry" list="supplierIndustryOptions" required /></label>
+            <label class="field-label">Approval Status
+              <select name="approvalStatus">
+                <option value="Approved">Approved</option>
+                <option value="Not Approved">Not Approved</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Contact Person <input type="text" name="contactPerson" /></label>
+            <label class="field-label">City <input type="text" name="city" /></label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Email <input type="email" name="email" /></label>
+            <label class="field-label">Phone <input type="text" name="phone" /></label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Lead Time (days) <input type="number" name="leadTimeDays" min="0" value="0" /></label>
+            <label class="field-label">Rating <input type="number" name="rating" min="0" max="5" step="0.1" value="0" /></label>
+          </div>
+          <div class="modal-actions">
+            <button type="button" id="cancelSupplierEditorButton" class="btn-secondary">Cancel</button>
+            <button type="submit" class="btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- Workspace / account modal -->
+    <div id="workspaceDetailsModal" class="modal-shell hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-action="close-workspace-modal"></div>
+      <section class="modal-card modal-card-sm" role="dialog" aria-modal="true" aria-labelledby="workspaceDetailsTitle">
+        <div class="modal-header">
+          <div><span class="card-kicker">Account</span><h2 id="workspaceDetailsTitle">Workspace</h2></div>
+          <button id="closeWorkspaceDetailsButton" class="modal-close-btn" type="button" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="workspace-modal-body">
+          <div class="workspace-modal-user">
+            <div class="avatar-badge avatar-lg workspace-chip-avatar">BW</div>
+            <div>
+              <p class="workspace-modal-name" id="userName"></p>
+              <p class="text-muted" id="userMeta"></p>
+            </div>
+          </div>
+          <div id="permissionSummary"></div>
+          <div class="workspace-modal-actions">
+            <button id="workspaceProfileButton" class="btn-secondary btn-full" type="button">Open Profile</button>
+            <button id="logoutButton" class="btn-ghost btn-full" type="button">Sign Out</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bank details modal -->
+    <div id="bankDetailsModal" class="modal-shell hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-action="close-bank-modal"></div>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="bankDetailsTitle">
+        <div class="modal-header">
+          <div><span class="card-kicker">Supplier Finance</span><h2 id="bankDetailsTitle">Bank Details</h2></div>
+          <button id="closeBankDetailsButton" class="modal-close-btn" type="button" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div id="bankDetailsStatus" class="empty-state"></div>
+        <form id="bankDetailsForm" class="panel-form">
+          <label class="field-label">Account Name <input type="text" name="accountName" /></label>
+          <div class="form-row">
+            <label class="field-label">Bank Name <input type="text" name="bankName" /></label>
+            <label class="field-label">Account Number <input type="text" name="accountNumber" /></label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">IFSC / SWIFT <input type="text" name="ifscCode" /></label>
+            <label class="field-label">Branch <input type="text" name="branch" /></label>
+          </div>
+          <label class="field-label">Notes <textarea name="notes" rows="3" placeholder="Optional payment or verification notes"></textarea></label>
+          <div class="modal-actions">
+            <button type="button" id="cancelBankDetailsButton" class="btn-secondary">Later</button>
+            <button type="submit" class="btn-primary">Save Bank Details</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- Inventory editor modal -->
+    <div id="inventoryEditorModal" class="modal-shell hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-action="close-inventory-modal"></div>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="inventoryEditorTitle">
+        <div class="modal-header">
+          <div><span class="card-kicker">Edit Item</span><h2 id="inventoryEditorTitle">Update Inventory Item</h2></div>
+          <button id="closeInventoryEditorButton" class="modal-close-btn" type="button" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <form id="inventoryEditorForm" class="panel-form">
+          <label class="field-label">Item Name <input type="text" name="name" required /></label>
+          <div class="form-row">
+            <label class="field-label">SKU <input type="text" name="sku" required /></label>
+            <label class="field-label">Category <input type="text" name="category" required /></label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Quantity <input type="number" name="quantity" min="0" required /></label>
+            <label class="field-label">Low Stock Threshold <input type="number" name="threshold" min="0" required /></label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Customer <select name="customerId" id="inventoryEditorCustomerSelect"></select></label>
+            <label class="field-label">Project <select name="projectId" id="inventoryEditorProjectSelect"></select></label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Unit Cost <input type="number" name="cost" min="0" step="0.01" required /></label>
+            <label class="field-label">Unit <input type="text" name="unit" required /></label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Supplier <select name="supplierId" id="inventoryEditorSupplierSelect"></select></label>
+            <label class="field-label">Location <input type="text" name="location" /></label>
+          </div>
+          <div class="modal-actions">
+            <button type="button" id="cancelInventoryEditorButton" class="btn-secondary">Cancel</button>
+            <button type="submit" class="btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- Purchase order editor modal -->
+    <div id="purchaseOrderEditorModal" class="modal-shell hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-action="close-po-modal"></div>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="purchaseOrderEditorTitle">
+        <div class="modal-header">
+          <div><span class="card-kicker">Edit PO</span><h2 id="purchaseOrderEditorTitle">Update Purchase Order</h2></div>
+          <button id="closePurchaseOrderEditorButton" class="modal-close-btn" type="button" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <form id="purchaseOrderEditorForm" class="panel-form">
+          <div class="form-row">
+            <label class="field-label">Customer <select name="customerId" id="purchaseOrderEditorCustomerSelect"></select></label>
+            <label class="field-label">Project <select name="projectId" id="purchaseOrderEditorProjectSelect"></select></label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Supplier <select name="supplierId" id="purchaseOrderEditorSupplierSelect"></select></label>
+            <label class="field-label">Status
+              <select name="status">
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Received">Received</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Quantity <input type="number" name="quantity" min="1" required /></label>
+            <label class="field-label">Unit Cost <input type="number" name="cost" min="0" step="0.01" required /></label>
+          </div>
+          <div class="form-row">
+            <label class="field-label">Order Date <input type="date" name="orderDate" required /></label>
+            <label class="field-label">Expected Date <input type="date" name="expectedDate" /></label>
+          </div>
+          <label class="field-label">Notes <textarea name="notes" rows="3"></textarea></label>
+          <div class="modal-actions">
+            <button type="button" id="cancelPurchaseOrderEditorButton" class="btn-secondary">Cancel</button>
+            <button type="submit" class="btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <script src="app.js?v=20260427"></script>
+    <script>
+      // Mobile sidebar toggle
+      const openBtn = document.getElementById('sidebarOpenBtn');
+      const closeBtn = document.getElementById('sidebarCloseBtn');
+      const overlay = document.getElementById('sidebarOverlay');
+      const sidebar = document.getElementById('sidebar');
+      function openSidebar() { sidebar?.classList.add('open'); overlay?.classList.add('visible'); }
+      function closeSidebar() { sidebar?.classList.remove('open'); overlay?.classList.remove('visible'); }
+      openBtn?.addEventListener('click', openSidebar);
+      closeBtn?.addEventListener('click', closeSidebar);
+      overlay?.addEventListener('click', closeSidebar);
+      // Close sidebar on nav item click (mobile)
+      document.getElementById('tabs')?.addEventListener('click', e => {
+        if (e.target.closest('.tab') && window.innerWidth < 768) closeSidebar();
+      });
+    </script>
+  </body>
+</html>

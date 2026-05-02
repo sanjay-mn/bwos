@@ -1,0 +1,19 @@
+{
+  "name": "brahmworks-inventory",
+  "version": "2.0.0",
+  "description": "Brahmworks Inventory OS — Vercel + Neon edition",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  }
+}
